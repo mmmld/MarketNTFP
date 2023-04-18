@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version = "2.1" >
+
+  <menu id="menu1" dtmf="true">
+    <prompt>
+      Hello, press 1 if you are a buyer. Press 2 if you are a seller.
+    </prompt>
+    <choice next="#form1"/>
+    <choice next="#form2"/>
+  </menu>
+
+  <menu id="product_menu" dtmf="true">
+    <prompt>
+      Press 1 if you are interested in honey. Press 2 if you are interested in flowers.
+    </prompt>
+    <choice next="#honey_form"/>
+    <choice next="#flower_form"/>
+  </menu>
+
+  <form id="form1">
+    <block>
+      <prompt>
+        You want to buy products.
+      </prompt>
+      <goto next="#product_list" />
+    </block>
+  </form>
+
+  <form id="form2">
+    <block>
+      <prompt>
+        You want to sell products. This feature is not yet available.
+      </prompt>
+    </block>
+  </form>
+
+  <form id="product_list">
+    <block>
+      <prompt>
+        The available products are honey and flowers.
+      </prompt>
+      <goto next="#product_menu" />
+    </block>
+  </form>
+
+  <form id="honey_form">
+    <block>
+      <prompt>
+        Honey is available in the region of Kossi. Please call the number 1 2 3 4.
+      </prompt>
+      <goto next="#honey_form" />
+    </block>
+  </form>
+
+  <form id="flower_form">
+    <block>
+      <prompt>
+        Flowers are available in the region of Soum. Please call the number 5 6 7 8.
+      </prompt>
+      <goto next="#flower_form" />
+    </block>
+  </form>
+
+</vxml>
