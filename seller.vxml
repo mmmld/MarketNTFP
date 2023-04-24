@@ -1,14 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
 
-  <var name="callerNumber"/>
+  <var name="callerNumber" />
+  <var name="product" />
+  <var name="quantity" />
+  <var name="price" />
+  <var name="region"/>
+  <assign name="callerNumber" expr="session.telephone.ani" class="digits"/>
 
-  <form id="form2">
+  <form id="seller_start">
     <block>
-      <prompt>Thank you for calling. Your number is 
-        <value expr="session.telephone.ani" class="digits" />
+      <prompt>
+        You want to list yourself to sell some products. 
+        <break time="100" />
+      </prompt>
+      <goto next="#product_menu" />
+    </block>
+  </form>
+
+  <menu id="product_menu" dtmf="true">
+    <prompt>
+      Press 1 if you want to sell honey. Press 2 if you want to sell flowers.
+    </prompt>
+    <choice next="#honey_selected" dtmf="1"> </choice>
+    <choice next="#flower_selected" dtmf="2"></choice>
+  </menu>
+
+  <form id="honey_selected">
+    <block>
+      <assign name="product" expr="'honey'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="flower_selected">
+    <block>
+      <assign name="product" expr="'flowers'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="quantity_form">
+    <field name="quantity_field" type="number">
+      <prompt>
+        Please enter the quantity for one unit of <value expr="product" />
+        <break time="1000"/>
+      </prompt>
+      
+    </field>
+    <filled>
+      <assign name="quantity" expr="quantity_field"/>
+      <goto next="#price_form"/>
+    </filled>
+  </form>
+
+  <form id="price_form">
+    <field name="price_field" type="number">
+      <prompt>
+        Please enter the price for one unit of <value expr="product" />
+        <break time="1000"/>
+      </prompt>
+      
+    </field>
+    <filled>
+      <assign name="price" expr="price_field"/>
+      <goto next="#region_menu"/>
+    </filled>
+  </form>
+
+  <menu id="region_menu" dtmf="true">
+    <prompt>
+      Press 1 if you live in the north. Press 2 if you live in the east. Press 3 if you live in the south. Press 4 if you live in the west.
+    </prompt>
+    <choice next="#north_selected" dtmf="1"> </choice>
+    <choice next="#east_selected" dtmf="2"></choice>
+    <choice next="#south_selected" dtmf="3"> </choice>
+    <choice next="#west_selected" dtmf="4"></choice>
+  </menu>
+
+  <form id="north_selected">
+    <block>
+      <assign name="region" expr="'north'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <form id="east_selected">
+    <block>
+      <assign name="region" expr="'east'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <form id="south_selected">
+    <block>
+      <assign name="region" expr="'south'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <form id="west_selected">
+    <block>
+      <assign name="region" expr="'west'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <menu id="recap" dtmf="true">
+    <prompt>
+      <break time="500" />
+      You want to list <value expr="product" /><break time="100" /> for a quantity of <value expr="quantity" />,
+      <break time="100" /> a price of <value expr="price" /> <break time="100"/> in the <value expr="region" /> region.
+      If that information is correct, please press 1. Otherwise, press 2 to change the listing.
+    </prompt>
+    <choice next="#confirm" dtmf="1"> </choice>
+    <choice next="#seller_start" dtmf="2"></choice>
+  </menu>
+
+  <form id="confirm">
+    <block>
+      <!-- 
+        TODO: save all the info in the database
+      -->
+      <prompt>
+        Thank you for registering the product with us!
       </prompt>
     </block>
   </form>
-  
+
 </vxml>
