@@ -150,6 +150,10 @@
       <!-- 
         TODO: save all the info in the database, by calling the function addSeller(product, callerNumber, quantity, price, region)
       -->
+      <script>
+        addSeller(product, callerNumber, quantity, price, region);
+      </script>
+
       <prompt>
         Thank you for registering the product with us! 
       </prompt>
