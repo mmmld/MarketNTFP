@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
 
+  <!-- language is english by default -->
+  <var name="lang" expr="'en-us'"/>
+
+  <menu id="menu1" dtmf="true">
+    <audio src="choose_lang.mp3"></audio>
+    <choice next="#english"/>
+    <choice next="#french"/>
+  </menu>
+
+  <form id="english">
+    <block>
+      <assign name="lang" expr="'en-us'" />
+      <goto next="#menu2-en" />
+    </block>
+  </form>
+
+  <form id="french">
+    <block>
+      <assign name="lang" expr="'fr-fr'" />
+      <goto next="#menu2-fr" />
+    </block>
+  </form>
+
   <!-- 
     Determining if the caller wants to buy or sell products
   -->
-  <menu id="menu1" dtmf="true">
+  <menu id="menu2-en" dtmf="true">
     <prompt>
       Welcome to market N T F P, press 1 if you are a buyer. Press 2 if you are a seller.
     </prompt>
     <choice next="buyer.vxml#product_menu"/>
     <choice next="seller.vxml#product_menu"/>
+  </menu>
+
+  <menu id="menu2-fr" dtmf="true">
+    <audio expr="lang + '/welcome.mp3' "></audio>
+    <choice next="buyer-fr.vxml#product_menu"/>
+    <choice next="seller-fr.vxml#product_menu"/>
   </menu>
 
 </vxml>

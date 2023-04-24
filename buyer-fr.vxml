@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vxml version = "2.1" >
+<vxml version = "2.1" xml:lang="fr-FR">
 
   <!-- Declaring the necessary variables here -->
   <var name="product_wanted" />
@@ -11,9 +11,7 @@
 
   <!-- First menu to get what the user wants to buy -->
   <menu id="product_menu" dtmf="true">
-    <prompt>
-      Press 1 if you are interested in honey. Press 2 for shea butter. Press 3 for neem oil. Press 4 for soap. Press 5 for herbal mixes.
-    </prompt>
+    <audio src="fr-fr/product_list.mp3"></audio>
     <choice next="#honey_form"/>
     <choice next="#shea_butter_form"/>
     <choice next="#neem_oil_form"/>
@@ -62,14 +60,16 @@
     <block>
       <if cond="getSellers(product_wanted)">
         <prompt>
-          Some sellers are available for you!
+          <audio src="fr-fr/available_sellers.mp3"></audio>
         </prompt>
         <foreach item="seller" array="listed_sellers">
-          <prompt> In the <value expr="seller.region"/>, a quantity of <value expr="seller.quantity" />, for a price of <value expr="seller.price" />. <break time="100" /> Call the number <value expr="seller.number" /> <break time="500" /> <value expr="seller.number" /> <break time="500" /></prompt>
+          <prompt> 
+            <audio src="fr-fr/in_the_region.mp3"></audio> <audio expr="'fr-fr/' + seller.region + '.mp3'"></audio> <audio src="fr-fr/quantity_of.mp3"></audio> <value expr="seller.quantity" /><audio src="fr-fr/price_of.mp3"></audio> <value expr="seller.price" />. <break time="100" /> <audio src="fr-fr/call_the_number.mp3"></audio> <value expr="seller.number" /> <break time="500" /> <value expr="seller.number" /> <break time="500" />
+          </prompt>
           <break time="300ms"/>
         </foreach>
       <else/>
-        No sellers have this product currently.
+        <audio src="fr-fr/no_seller.mp3"></audio>
       </if>
       <goto next="#end"/>
     </block>
@@ -79,7 +79,7 @@
   <form id="end">
     <block>
       <prompt>
-        If you have the necessary information, you can hang up and call the sellers that interest you. If you want to buy more products, you will be redirected to the first menu. 
+        <audio src="fr-fr/end_buyer.mp3"></audio> 
         <break time="500"/>
         <goto next="#product_menu" /> 
       </prompt>

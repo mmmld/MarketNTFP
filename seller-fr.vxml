@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version = "2.1" xml:lang="fr-FR">
+
+  <!-- 
+    variables necessary to reference a caller in our database as a seller for a specific product
+  -->
+  <var name="callerNumber" />
+  <var name="product" />
+  <var name="quantity" />
+  <var name="price" />
+  <var name="region"/>
+  <assign name="callerNumber" expr="session.telephone.ani" class="digits"/>
+
+  <!-- js script that contains the function to add a seller to the db -->
+  <script src="script.js"></script>
+
+  <!-- Seller can choose what to product they want to list themselves for: honey, shea butter, neem oil, soap, herbal mixes  -->
+  <menu id="product_menu" dtmf="true">
+    <audio src="fr-fr/product_list.mp3"></audio>
+    <choice next="#honey_form"/>
+    <choice next="#shea_butter_form"/>
+    <choice next="#neem_oil_form"/>
+    <choice next="#soap_form"/>
+    <choice next="#herbs_form"/>
+  </menu>
+
+  <!-- The next five forms are used to assign the value of the selected value to the variable product -->
+  <form id="honey_form">
+    <block>
+      <assign name="product" expr="'honey'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="shea_butter_form">
+    <block>
+      <assign name="product" expr="'shea_butter'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="neem_oil_form">
+    <block>
+      <assign name="product" expr="'neem_oil'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="soap_form">
+    <block>
+      <assign name="product" expr="'soap'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="herbs_form">
+    <block>
+      <assign name="product" expr="'herbs'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <!-- User inputs the quantity they have available -->
+  <form id="quantity_form">
+    <field name="quantity_field" type="number">
+      <prompt>
+        <audio src="fr-fr/quantity_input.mp3"></audio> <audio expr="'fr-fr/' + product + '.mp3'"></audio>
+        <break time="1000"/>
+      </prompt>
+      
+    </field>
+    <filled>
+      <assign name="quantity" expr="quantity_field"/>
+      <goto next="#price_form"/>
+    </filled>
+  </form>
+
+  <!-- User inputs the price per unit they are listing -->
+  <form id="price_form">
+    <field name="price_field" type="number">
+      <prompt>
+        <audio src="fr-fr/price_input.mp3"></audio> <audio expr="'fr-fr/' + product + '.mp3'"></audio>
+        <break time="1000"/>
+      </prompt>
+      
+    </field>
+    <filled>
+      <assign name="price" expr="price_field"/>
+      <goto next="#region_menu"/>
+    </filled>
+  </form>
+
+  <!-- User inputs their overall region -->
+  <menu id="region_menu" dtmf="true">
+    <audio src="fr-fr/region_input.mp3"></audio>
+    <choice next="#north_selected" dtmf="1"> </choice>
+    <choice next="#east_selected" dtmf="2"></choice>
+    <choice next="#south_selected" dtmf="3"> </choice>
+    <choice next="#west_selected" dtmf="4"></choice>
+  </menu>
+
+  <!-- The next four forms are used to assign their selected region to the region variable -->
+  <form id="north_selected">
+    <block>
+      <assign name="region" expr="'north'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <form id="east_selected">
+    <block>
+      <assign name="region" expr="'east'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <form id="south_selected">
+    <block>
+      <assign name="region" expr="'south'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <form id="west_selected">
+    <block>
+      <assign name="region" expr="'west'" />
+      <goto next="#recap" />
+    </block>
+  </form>
+
+  <!-- Recaping the input info to the user so they can either confirm it or change it -->
+  <menu id="recap" dtmf="true">
+    <prompt>
+      <break time="500" />
+      <audio src="fr-fr/product_recap.mp3"></audio>  <audio expr="'fr-fr/' + product + '.mp3'"></audio> <break time="100" /> <audio src="fr-fr/quantity_recap.mp3"> </audio> <value expr="quantity" />,
+      <break time="100" /> <audio src="fr-fr/price_recap.mp3"> </audio> <value expr="price" /> <break time="100"/> <audio src="fr-fr/region_recap.mp3"> </audio> <audio expr="'fr-fr/' + region + '.mp3'" ></audio>
+      <audio src="fr-fr/end_recap.mp3"></audio>
+    </prompt>
+    <choice next="#confirm" dtmf="1"> </choice>
+    <choice next="#seller_start" dtmf="2"></choice>
+  </menu>
+
+  <!-- Adding the seller to the db and confirming it to them -->
+  <form id="confirm">
+    <block>
+      <!-- 
+        TODO: save all the info in the database, by calling the function addSeller(product, callerNumber, quantity, price, region)
+      -->
+      <script>
+        addSeller(product, callerNumber, quantity, price, region);
+      </script>
+
+      <audio src="fr-fr/confirm_buyer.mp3"></audio>
+    </block>
+  </form>
+
+</vxml>
