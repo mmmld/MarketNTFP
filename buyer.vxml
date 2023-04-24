@@ -1,47 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
 
+  <var name="product_wanted" />
+  <var name="product_available" expr="false" />
+  <var name="listed_sellers" expr="[]" />
+
+  <script src="script.js"></script>
+
   <menu id="product_menu" dtmf="true">
     <prompt>
-      Press 1 if you are interested in honey. Press 2 if you are interested in flowers.
+      Press 1 if you are interested in honey. Press 2 for shea butter. Press 3 for neem oil. Press 4 for soap. Press 5 for herbal mixes.
     </prompt>
     <choice next="#honey_form"/>
-    <choice next="#flower_form"/>
+    <choice next="#shea_butter_form"/>
+    <choice next="#neem_oil_form"/>
+    <choice next="#soap_form"/>
+    <choice next="#herbs_form"/>
   </menu>
-
-  <form id="form1">
-    <block>
-      <prompt>
-        You want to buy products.
-      </prompt>
-      <goto next="#product_list" />
-    </block>
-  </form>
-
-  <form id="product_list">
-    <block>
-      <prompt>
-        The available products are honey and flowers.
-      </prompt>
-      <goto next="#product_menu" />
-    </block>
-  </form>
 
   <form id="honey_form">
     <block>
-      <prompt>
-        Honey is available in the region of Kossi. Please call the number 1 2 3 4.
-      </prompt>
-      <goto next="#honey_form" />
+      <assign name="product_wanted" expr="'honey'" />
+      <goto next="#availability" />
     </block>
   </form>
 
-  <form id="flower_form">
+  <form id="shea_butter_form">
+    <block>
+      <assign name="product_wanted" expr="'shea_butter'" />
+      <goto next="#availability" />
+    </block>
+  </form>
+
+  <form id="neem_oil_form">
+    <block>
+      <assign name="product_wanted" expr="'neem_oil'" />
+      <goto next="#availability" />
+    </block>
+  </form>
+
+  <form id="soap_form">
+    <block>
+      <assign name="product_wanted" expr="'soap'" />
+      <goto next="#availability" />
+    </block>
+  </form>
+
+  <form id="herbs_form">
+    <block>
+      <assign name="product_wanted" expr="'herbs'" />
+      <goto next="#availability" />
+    </block>
+  </form>
+
+  <form id="availability">
+    <block>
+      <if cond="getSellers(product_wanted)">
+        <prompt>
+          Some sellers are available for you!
+        </prompt>
+        <foreach item="seller" array="listed_sellers">
+          <prompt> In the <value expr="seller.region"/>, a quantity of <value expr="seller.quantity" />, for a price of <value expr="seller.price" />. <break time="100" /> Call the number <value expr="seller.number" /> <break time="500" /> <value expr="seller.number" /> <break time="500" /></prompt>
+          <break time="300ms"/>
+        </foreach>
+      <else/>
+        No sellers have this product currently.
+      </if>
+      <goto next="#end"/>
+    </block>
+  </form>
+
+  <form id="end">
     <block>
       <prompt>
-        Flowers are available in the region of Soum. Please call the number 5 6 7 8.
+        If you have the necessary information, you can hang up. If you want to buy more products, you will be redirected to the first menu. 
+        <break time="500"/>
+        <goto next="product_menu" /> 
       </prompt>
-      <goto next="#flower_form" />
     </block>
   </form>
 
