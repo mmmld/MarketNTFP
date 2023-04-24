@@ -6,7 +6,7 @@
   -->
   <menu id="menu1" dtmf="true">
     <prompt>
-      Hello, press 1 if you are a buyer. Press 2 if you are a seller.
+      Welcome to market N T F P, press 1 if you are a buyer. Press 2 if you are a seller.
     </prompt>
     <choice next="buyer.vxml#product_menu"/>
     <choice next="seller.vxml#product_menu"/>
