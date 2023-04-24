@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version = "2.1" >
+
+  <var name="callerNumber"/>
+
+  <form id="form2">
+    <block>
+      <prompt>Thank you for calling. Your number is 
+        <value expr="session.telephone.ani" class="digits" />
+      </prompt>
+    </block>
+  </form>
+  
+</vxml>
