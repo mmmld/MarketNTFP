@@ -8,6 +8,8 @@
   <var name="region"/>
   <assign name="callerNumber" expr="session.telephone.ani" class="digits"/>
 
+  <script src="script.js"></script>
+
   <form id="seller_start">
     <block>
       <prompt>
@@ -20,22 +22,46 @@
 
   <menu id="product_menu" dtmf="true">
     <prompt>
-      Press 1 if you want to sell honey. Press 2 if you want to sell flowers.
+      Press 1 if you want to sell honey. Press 2 for shea butter. Press 3 for neem oil. Press 4 for soap. Press 5 for herbal mixes.
     </prompt>
-    <choice next="#honey_selected" dtmf="1"> </choice>
-    <choice next="#flower_selected" dtmf="2"></choice>
+    <choice next="#honey_form"/>
+    <choice next="#shea_butter_form"/>
+    <choice next="#neem_oil_form"/>
+    <choice next="#soap_form"/>
+    <choice next="#herbs_form"/>
   </menu>
 
-  <form id="honey_selected">
+  <form id="honey_form">
     <block>
-      <assign name="product" expr="'honey'" />
+      <assign name="product_wanted" expr="'honey'" />
       <goto next="#quantity_form" />
     </block>
   </form>
 
-  <form id="flower_selected">
+  <form id="shea_butter_form">
     <block>
-      <assign name="product" expr="'flowers'" />
+      <assign name="product_wanted" expr="'shea_butter'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="neem_oil_form">
+    <block>
+      <assign name="product" expr="'neem_oil'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="soap_form">
+    <block>
+      <assign name="product" expr="'soap'" />
+      <goto next="#quantity_form" />
+    </block>
+  </form>
+
+  <form id="herbs_form">
+    <block>
+      <assign name="product" expr="'herbs'" />
       <goto next="#quantity_form" />
     </block>
   </form>
@@ -120,7 +146,7 @@
   <form id="confirm">
     <block>
       <!-- 
-        TODO: save all the info in the database
+        TODO: save all the info in the database, by calling the function addSeller(product, callerNumber, quantity, price, region)
       -->
       <prompt>
         Thank you for registering the product with us!
