@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
 
+  <!-- Declaring the necessary variables here -->
   <var name="product_wanted" />
   <var name="product_available" expr="false" />
   <var name="listed_sellers" expr="[]" />
 
+  <!-- JS script that contains a function used to get all sellers registered for the wanted product -->
   <script src="script.js"></script>
 
+  <!-- First menu to get what the user wants to buy -->
   <menu id="product_menu" dtmf="true">
     <prompt>
       Press 1 if you are interested in honey. Press 2 for shea butter. Press 3 for neem oil. Press 4 for soap. Press 5 for herbal mixes.
@@ -18,6 +21,7 @@
     <choice next="#herbs_form"/>
   </menu>
 
+  <!-- The five next forms are used to assign the selected product to the variable product_wanted -->
   <form id="honey_form">
     <block>
       <assign name="product_wanted" expr="'honey'" />
@@ -53,6 +57,7 @@
     </block>
   </form>
 
+  <!-- Get all the sellers for the wanted product in the db. If they exist, we list them. -->
   <form id="availability">
     <block>
       <if cond="getSellers(product_wanted)">
@@ -70,10 +75,11 @@
     </block>
   </form>
 
+  <!-- Inform user that they will be redirected to the beginning of the call if they want to get more products -->
   <form id="end">
     <block>
       <prompt>
-        If you have the necessary information, you can hang up. If you want to buy more products, you will be redirected to the first menu. 
+        If you have the necessary information, you can hang up and call the sellers that interest you. If you want to buy more products, you will be redirected to the first menu. 
         <break time="500"/>
         <goto next="product_menu" /> 
       </prompt>

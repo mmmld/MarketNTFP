@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
 
+  <!-- 
+    variables necessary to reference a caller in our database as a seller for a specific product
+  -->
   <var name="callerNumber" />
   <var name="product" />
   <var name="quantity" />
@@ -8,18 +11,10 @@
   <var name="region"/>
   <assign name="callerNumber" expr="session.telephone.ani" class="digits"/>
 
+  <!-- js script that contains the function to add a seller to the db -->
   <script src="script.js"></script>
 
-  <form id="seller_start">
-    <block>
-      <prompt>
-        You want to list yourself to sell some products. 
-        <break time="100" />
-      </prompt>
-      <goto next="#product_menu" />
-    </block>
-  </form>
-
+  <!-- Seller can choose what to product they want to list themselves for: honey, shea butter, neem oil, soap, herbal mixes  -->
   <menu id="product_menu" dtmf="true">
     <prompt>
       Press 1 if you want to sell honey. Press 2 for shea butter. Press 3 for neem oil. Press 4 for soap. Press 5 for herbal mixes.
@@ -31,6 +26,7 @@
     <choice next="#herbs_form"/>
   </menu>
 
+  <!-- The next five forms are used to assign the value of the selected value to the variable product -->
   <form id="honey_form">
     <block>
       <assign name="product_wanted" expr="'honey'" />
@@ -66,6 +62,7 @@
     </block>
   </form>
 
+  <!-- User inputs the quantity they have available -->
   <form id="quantity_form">
     <field name="quantity_field" type="number">
       <prompt>
@@ -80,6 +77,7 @@
     </filled>
   </form>
 
+  <!-- User inputs the price per unit they are listing -->
   <form id="price_form">
     <field name="price_field" type="number">
       <prompt>
@@ -94,6 +92,7 @@
     </filled>
   </form>
 
+  <!-- User inputs their overall region -->
   <menu id="region_menu" dtmf="true">
     <prompt>
       Press 1 if you live in the north. Press 2 if you live in the east. Press 3 if you live in the south. Press 4 if you live in the west.
@@ -104,6 +103,7 @@
     <choice next="#west_selected" dtmf="4"></choice>
   </menu>
 
+  <!-- The next four forms are used to assign their selected region to the region variable -->
   <form id="north_selected">
     <block>
       <assign name="region" expr="'north'" />
@@ -132,6 +132,7 @@
     </block>
   </form>
 
+  <!-- Recaping the input info to the user so they can either confirm it or change it -->
   <menu id="recap" dtmf="true">
     <prompt>
       <break time="500" />
@@ -143,13 +144,14 @@
     <choice next="#seller_start" dtmf="2"></choice>
   </menu>
 
+  <!-- Adding the seller to the db and confirming it to them -->
   <form id="confirm">
     <block>
       <!-- 
         TODO: save all the info in the database, by calling the function addSeller(product, callerNumber, quantity, price, region)
       -->
       <prompt>
-        Thank you for registering the product with us!
+        Thank you for registering the product with us! 
       </prompt>
     </block>
   </form>

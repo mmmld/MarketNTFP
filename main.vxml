@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
 
+  <!-- 
+    Determining if the caller wants to buy or sell products
+  -->
   <menu id="menu1" dtmf="true">
     <prompt>
       Hello, press 1 if you are a buyer. Press 2 if you are a seller.
     </prompt>
     <choice next="buyer.vxml#product_menu"/>
-    <choice next="seller.vxml#seller_start"/>
+    <choice next="seller.vxml#product_menu"/>
   </menu>
 
 </vxml>
