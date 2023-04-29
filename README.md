@@ -11,19 +11,22 @@ Project for the ICT4D course, aiming at putting in contact buyer and sellers of 
 
 In order to test the project on voxeo, call	+31 2 08 08 2848 and enter the PIN: `9990522467`.
 
-Pre-requisites:
-install latest version of node.js from: 
-https://nodejs.org/en
+## Pre-requisites:
+* install latest version of node.js from: https://nodejs.org/en
 
-Run:
-- npm install 
-- node server.js : For running the API server
+## To Run on local:
+* run : `npm install` in the project directory to install all dependencies
+* run : `node server.js` : For running the API server
 
-REST API curl command examples: 
-For getting all sellers :
+## REST API curl command examples: 
+
+### Example API call for getting all sellers for a product type:
+```
 curl --location 'localhost:5001/api/sellers/neem-oil'
+```
 
-For adding a seller :
+### Example API call For adding a seller :
+```
 curl --location 'localhost:5001/api/addSeller' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -33,5 +36,6 @@ curl --location 'localhost:5001/api/addSeller' \
             "price": "120",
             "region": "west"
 }'
+```
 
 
