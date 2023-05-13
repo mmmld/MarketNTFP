@@ -4,15 +4,10 @@ dotenv.config();
 
 /**
  * Gets all the sellers listed for one product in the database in the listed_sellers
- * @param {String} product: can be honey, shea_butter, neem_oil, soap, herbal. 
+ * @param {String} product: either acacia, shea_butter, soumbala, moringa or baobab
  * @returns a boolean, true if some sellers are listed for the product, false otherwise
  */
 async function getSellers(product) {
-    /**
-     *  TODO: need to actually implement but the listed_sellers object (declared in buyer.vxml) should be something like: 
-     *          if no seller for that product then empty list and return false
-     *          if there are sellers, the listed_sellers = [{region, quantity, price, number}] and return true
-     **/
     await dbInit();
     var selectQuery = `select * from ${process.env.SCHEMA}.${process.env.TABLE_NAME} where product = '${product}' limit 100`
     var queryResult = await executeQuery(selectQuery)
@@ -27,7 +22,7 @@ async function dbInit() {
 
 /**
  * Adds the seller to the database for the selected product
- * @param {String} product: either honey, shea_butter, neem_oil, soap or herbs
+ * @param {String} product: either acacia, shea_butter, soumbala, moringa or baobab
  * @param {String} number: number of the seller
  * @param {String} quantity: quantity of the product the product they are selling
  * @param {String} price: price of one unit 

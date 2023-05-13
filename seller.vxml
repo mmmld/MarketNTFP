@@ -14,22 +14,22 @@
   <!-- js script that contains the function to add a seller to the db -->
   <script src="script.js"></script>
 
-  <!-- Seller can choose what to product they want to list themselves for: honey, shea butter, neem oil, soap, herbal mixes  -->
+  <!-- Seller can choose what to product they want to list themselves for: acacia seeds, shea butter, soumbala, moringa leaves, baobab leaves and fruits  -->
   <menu id="product_menu" dtmf="true">
     <prompt>
-      Press 1 if you want to sell honey. Press 2 for shea butter. Press 3 for neem oil. Press 4 for soap. Press 5 for herbal mixes.
+      Press 1 if you want to sell acacia seeds. Press 2 for shea butter. Press 3 for soumbala. Press 4 for moringa leaves. Press 5 for baobab leaves and fruits.
     </prompt>
-    <choice next="#honey_form"/>
+    <choice next="#acacia_form"/>
     <choice next="#shea_butter_form"/>
-    <choice next="#neem_oil_form"/>
-    <choice next="#soap_form"/>
-    <choice next="#herbs_form"/>
+    <choice next="#soumbala_form"/>
+    <choice next="#moringa_form"/>
+    <choice next="#baobab_form"/>
   </menu>
 
   <!-- The next five forms are used to assign the value of the selected value to the variable product -->
-  <form id="honey_form">
+  <form id="acacia_form">
     <block>
-      <assign name="product_wanted" expr="'honey'" />
+      <assign name="product_wanted" expr="'acacia'" />
       <goto next="#quantity_form" />
     </block>
   </form>
@@ -41,23 +41,23 @@
     </block>
   </form>
 
-  <form id="neem_oil_form">
+  <form id="soumbala_form">
     <block>
-      <assign name="product" expr="'neem_oil'" />
+      <assign name="product" expr="'soumbala'" />
       <goto next="#quantity_form" />
     </block>
   </form>
 
-  <form id="soap_form">
+  <form id="moringa_form">
     <block>
-      <assign name="product" expr="'soap'" />
+      <assign name="product" expr="'moringa'" />
       <goto next="#quantity_form" />
     </block>
   </form>
 
-  <form id="herbs_form">
+  <form id="baobab_form">
     <block>
-      <assign name="product" expr="'herbs'" />
+      <assign name="product" expr="'baobab'" />
       <goto next="#quantity_form" />
     </block>
   </form>

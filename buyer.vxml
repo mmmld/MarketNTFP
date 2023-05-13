@@ -12,19 +12,19 @@
   <!-- First menu to get what the user wants to buy -->
   <menu id="product_menu" dtmf="true">
     <prompt>
-      Press 1 if you are interested in honey. Press 2 for shea butter. Press 3 for neem oil. Press 4 for soap. Press 5 for herbal mixes.
+      Press 1 if you are interested in acacia seeds. Press 2 for shea butter. Press 3 for soumbala. Press 4 for moringa leaves. Press 5 for baobab leaves and fruits.
     </prompt>
-    <choice next="#honey_form"/>
+    <choice next="#acacia_form"/>
     <choice next="#shea_butter_form"/>
-    <choice next="#neem_oil_form"/>
-    <choice next="#soap_form"/>
-    <choice next="#herbs_form"/>
+    <choice next="#soumbala_form"/>
+    <choice next="#moringa_form"/>
+    <choice next="#baobab_form"/>
   </menu>
 
   <!-- The five next forms are used to assign the selected product to the variable product_wanted -->
-  <form id="honey_form">
+  <form id="acacia_form">
     <block>
-      <assign name="product_wanted" expr="'honey'" />
+      <assign name="product_wanted" expr="'acacia'" />
       <goto next="#availability" />
     </block>
   </form>
@@ -36,23 +36,23 @@
     </block>
   </form>
 
-  <form id="neem_oil_form">
+  <form id="soumbala_form">
     <block>
-      <assign name="product_wanted" expr="'neem_oil'" />
+      <assign name="product_wanted" expr="'soumbala'" />
       <goto next="#availability" />
     </block>
   </form>
 
-  <form id="soap_form">
+  <form id="moringa_form">
     <block>
-      <assign name="product_wanted" expr="'soap'" />
+      <assign name="product_wanted" expr="'moringa'" />
       <goto next="#availability" />
     </block>
   </form>
 
-  <form id="herbs_form">
+  <form id="baobab_form">
     <block>
-      <assign name="product_wanted" expr="'herbs'" />
+      <assign name="product_wanted" expr="'baobab'" />
       <goto next="#availability" />
     </block>
   </form>
