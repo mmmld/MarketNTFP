@@ -1,11 +1,13 @@
 # MarketNTFP
-Authors: Marie-Lou David
+Authors: Marie-Lou David, Ishas Kulkarni
 
 Creation date: 17-04-2023
 
 Revision dates:
  - addition of seller functionalities: 24-04-2023
  - french translation: 24-04-2023
+ - database addition: 30-04-2023
+ - products changes: 13-05-2023
 
 Project for the ICT4D course, aiming at putting in contact buyer and sellers of NTFP in Burkina Faso.
 
